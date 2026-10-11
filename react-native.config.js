@@ -3,7 +3,8 @@ module.exports = {
     platforms: {
       android: {
         sourceDir: './android',
-        packageImportPath: 'import com.apngplayer.ApngPlayerPackage;',
+        packageImportPath: 'import io.github.danielkpl2.apngavif.ApngAvifPackage;',
+        packageInstance: 'new ApngAvifPackage()',
       },
       ios: {},
     },

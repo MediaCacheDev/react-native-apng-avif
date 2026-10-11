@@ -1,4 +1,4 @@
-package com.apngplayer;
+package io.github.danielkpl2.apngavif;
 
 import androidx.annotation.NonNull;
 
@@ -7,11 +7,10 @@ import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ApngPlayerPackage implements ReactPackage {
+public class ApngAvifPackage implements ReactPackage {
     @NonNull
     @Override
     public List<NativeModule> createNativeModules(@NonNull ReactApplicationContext reactContext) {
@@ -21,8 +20,6 @@ public class ApngPlayerPackage implements ReactPackage {
     @NonNull
     @Override
     public List<ViewManager> createViewManagers(@NonNull ReactApplicationContext reactContext) {
-        List<ViewManager> viewManagers = new ArrayList<>();
-        viewManagers.add(new ApngViewManager(reactContext));
-        return viewManagers;
+        return Collections.singletonList(new ApngAvifViewManager());
     }
 }

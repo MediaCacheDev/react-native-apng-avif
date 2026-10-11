@@ -1,126 +1,111 @@
-# react-native-apng-player
+# react-native-apng-avif
 
-React Native module for playing **APNG** (Animated PNG) and **AVIF** (AV1 Image File Format) animations on iOS, Android, and Web.
+Animated **APNG** and **AVIF** with full alpha transparency, in React Native on Android, iOS and
+Web. One component, `AnimatedImageView`, plays both formats. It reads the format from the file
+itself, so URLs without an extension work too.
 
-## Features
-
-- Play APNG and AVIF animations with full alpha transparency
-- Support for local files, bundled assets, and remote URLs
-- Control playback (autoPlay, paused, loop)
-- Resize modes (contain, cover, stretch, center)
-- Automatic format detection based on file extension
-
-## Supported Formats
-
-| Format | Extension | Description |
-|--------|-----------|-------------|
-| APNG | `.apng`, `.png` | Animated PNG - lossless, good for faint effects |
-| AVIF | `.avif` | AV1 Image Format - excellent compression with alpha |
+| Platform | APNG | AVIF |
+|---|---|---|
+| Android | [APNG4Android](https://github.com/penfeizhou/APNG4Android) | APNG4Android + libavif |
+| iOS | [SDWebImage](https://github.com/SDWebImage/SDWebImage) (ImageIO) | [SDWebImageAVIFCoder](https://github.com/SDWebImage/SDWebImageAVIFCoder) + libavif (dav1d) |
+| Web | Browser `<img>` | Browser `<img>` |
 
 ## Installation
 
 ```bash
-npm install react-native-apng-player
-cd ios && pod install
+npm install react-native-apng-avif
 ```
+
+### iOS
+
+The iOS code is Swift, and it imports Objective-C pods that don't define modules by themselves.
+Add these lines to your app's `Podfile`, inside the target:
+
+```ruby
+pod 'SDWebImage', :modular_headers => true
+pod 'SDWebImageAVIFCoder', :modular_headers => true
+pod 'libavif/libdav1d', :modular_headers => true
+```
+
+Then run `cd ios && pod install`. Name the `libdav1d` subspec rather than plain `libavif`: the
+plain pod pulls in libaom, a larger library that also includes an encoder.
+
+### Android
+
+No setup needed. Autolinking registers the package.
 
 ## Usage
 
 ```tsx
-import { ApngView } from 'react-native-apng-player';
+import { AnimatedImageView } from 'react-native-apng-avif';
 
-// APNG animation
-<ApngView
-  source={{ uri: 'https://example.com/animation.apng' }}
+<AnimatedImageView
+  source={{ uri: 'https://example.com/glow.avif' }}
   style={{ width: 200, height: 200 }}
-  autoPlay={true}
-  loop={true}
 />
 
-// AVIF animation (same component, auto-detected)
-<ApngView
-  source={{ uri: 'https://example.com/animation.avif' }}
+<AnimatedImageView
+  source={{ uri: 'asset://media/glow.apng' }}
   style={{ width: 200, height: 200 }}
-  autoPlay={true}
-  loop={true}
+  onLoad={(e) => console.log(e.nativeEvent.width, e.nativeEvent.height)}
+  onError={(e) => console.warn(e.nativeEvent.message)}
 />
 ```
 
-## Props
+### Sources
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| source | `{ uri?: string }` | required | Source of the animation file (APNG or AVIF) |
-| autoPlay | `boolean` | `true` | Start playing automatically |
-| paused | `boolean` | `false` | Pause the animation |
-| loop | `boolean` | `true` | Loop the animation |
-| loopCount | `number` | `0` | Number of loops (0 = infinite) |
-| resizeMode | `'contain' \| 'cover' \| 'stretch' \| 'center'` | `'contain'` | How to resize the image |
-| cacheKey | `string` | - | Optional cache key for the source |
+| Form | Android | iOS | Web |
+|---|---|---|---|
+| `https://…`, `http://…` | Downloaded once into the cache dir | SDWebImage (memory + disk cache) | `<img src>` |
+| `asset://path/file.apng` | Streamed from the APK's `assets/` folder | `<main bundle>/path/file.apng` | Relative to the page: `path/file.apng` |
+| `file:///abs/path`, `/abs/path` | Read directly | Read directly | n/a |
+| `content://…` | `ContentResolver` | n/a | n/a |
+| `require('./file.apng')` | Works in debug and release | Works in debug and release | Works if your bundler emits a URL for it |
 
-## GlowButton
+Nothing is copied: bundled files are read in place.
 
-A button whose glow is a pre-rendered animation rather than a live shader.
+Remote files are cached by URL. Pass `cacheKey` when the URL doesn't identify the contents, for
+example a presigned URL whose query string changes on every request, or a file rewritten at the
+same URL.
 
-`react-native-animated-glow`'s studio can export several interaction states into **one** APNG,
-stacked as rows: `default`, `hover`, `press`, in that order. `GlowButton` shows the row matching
-what the pointer is doing and clips the rest, so hover and press cost no extra file, no extra
-decoder, and no Skia at all.
-
-```tsx
-import { GlowButton } from 'react-native-apng-player';
-
-<GlowButton
-  source={{ uri: 'file:///.../glow-30fps-default-hover-press.apng' }}
-  states={['default', 'hover', 'press']}
-  content={{ width: 220, height: 90 }}
-  onPress={submit}
->
-  <Text style={{ color: '#fff' }}>Submit</Text>
-</GlowButton>
-```
-
-### How the sheet is laid out
-
-Each row is the button **plus the margin its glow bleeds into** — 100px a side by default,
-matching `GLOW_CANVAS_MARGIN` in the glow library. So a 220×90 button exports rows of 420×290, and
-a three-state sheet is 420×870.
-
-The button occupies its `content` box in layout and the glow spills outside it, exactly as a live
-glow does. The visible window is the padded row rather than the content box, because clipping to
-the content would cut the glow off at the button's edge.
+For `require()`, add the extensions to Metro's `assetExts`
+(`resolver.assetExts: [...defaults, 'apng', 'avif']`). Prefer the `.apng` extension over `.png`
+for animated PNGs. On Android, Metro puts `.png` files in `res/drawable`, where the release build's
+PNG optimisation may re-encode them and drop the animation.
 
 ### Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| source | `{ uri }` \| `number` \| `string` | required | The stacked animation |
-| states | `('default'\|'hover'\|'press')[]` | `['default']` | The rows the file holds, in order. The file cannot report this itself |
-| content | `{ width, height }` | required | The button's own size, excluding the glow margin |
-| margin | `number` | `100` | Padding baked into each row |
-| cacheKey | `string` | - | Identifies the file's **contents**. Needed when a file is rewritten at the same path, or the first version keeps showing |
-| activeState | `'default'\|'hover'\|'press'` | - | Pins the row shown, ignoring the pointer |
-| onPress | `() => void` | - | |
-| disabled | `boolean` | `false` | Also holds the row at `default` |
-| paused | `boolean` | `false` | |
+| Prop | Type | Default | |
+|---|---|---|---|
+| `source` | `{ uri, cacheKey? }` \| `string` \| `require()` | required | |
+| `autoPlay` | `boolean` | `true` | |
+| `paused` | `boolean` | `false` | |
+| `loop` | `boolean` | `true` | |
+| `loopCount` | `number` | `0` | Plays when `loop` is false; `0` plays forever. |
+| `resizeMode` | `'contain' \| 'cover' \| 'stretch' \| 'center'` | `'contain'` | |
+| `cacheKey` | `string` | | Identifies a remote file's contents. |
+| `onLoad` | `(e) => void` | | `e.nativeEvent`: `{ width, height }`, in pixels. |
+| `onError` | `(e) => void` | | `e.nativeEvent`: `{ message }`. |
 
-A state the sheet does not hold falls back down the interaction order: without a `press` row, a
-press shows `hover`; without either, `default`. A button that stopped responding altogether would
-be worse than one that responds less.
+It also accepts the usual `View` props (`style`, `testID`, `accessibilityLabel`, …).
 
-The geometry is exported too — `glowSheetLayout`, `rowForState`, `rowOffset`, `STATE_ORDER`,
-`DEFAULT_GLOW_MARGIN` — for anyone laying a sheet out by hand.
+`ApngView` still works as a deprecated alias of `AnimatedImageView`.
 
-## Supported Source Types
+### Web limitations
 
-- **Remote URL**: `{ uri: 'https://example.com/file.apng' }` or `{ uri: 'https://example.com/file.avif' }`
-- **Local file**: `{ uri: 'file:///path/to/file.apng' }` or `{ uri: 'file:///path/to/file.avif' }`
-- **Bundled asset**: `{ uri: 'asset://path/to/file.apng' }` or `require('./file.apng')`
+The browser's `<img>` has no playback control, so on web:
 
-## Platform Support
+- `paused` and `autoPlay={false}` have no effect;
+- `loop={false}` / `loopCount` follow the loop count stored in the file.
 
-| Platform | APNG | AVIF |
-|----------|------|------|
-| Android | ✅ via penfeizhou/APNG4Android | ✅ via penfeizhou/APNG4Android |
-| iOS | ✅ via SDWebImage | ✅ via SDWebImageAVIFCoder |
-| Web | ✅ Native browser support | ✅ Native browser support (Chrome 85+, Firefox 93+)
+Animated AVIF needs a recent browser; see [caniuse](https://caniuse.com/avif).
+
+## Glow buttons
+
+To make a hover/press glow button from an APNG or AVIF sheet, use
+[alpha-glow-button](https://github.com/danielkpl2/alpha-glow-button): `import { GlowButton } from
+'alpha-glow-button/apng-avif'`.
+
+## License
+
+MIT. See [NOTICE](NOTICE) for the libraries this package depends on.

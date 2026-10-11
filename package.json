@@ -1,38 +1,94 @@
 {
-  "name": "react-native-apng-player",
-  "version": "1.0.0",
-  "description": "React Native module for playing APNG animated images on iOS and Android",
-  "main": "src/index.js",
-  "types": "src/index.d.ts",
+  "name": "react-native-apng-avif",
+  "version": "0.1.0",
+  "description": "Animated APNG and AVIF, with alpha, in React Native on Android, iOS and Web.",
+  "main": "lib/commonjs/index.js",
+  "module": "lib/module/index.js",
+  "types": "lib/typescript/src/index.d.ts",
+  "react-native": "src/index.tsx",
+  "source": "src/index.tsx",
+  "files": [
+    "src",
+    "lib",
+    "android/src",
+    "android/build.gradle",
+    "ios",
+    "react-native-apng-avif.podspec",
+    "react-native.config.js",
+    "NOTICE",
+    "!**/__tests__",
+    "!android/build",
+    "!ios/build",
+    "!.DS_Store"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "bob build",
+    "typescript": "tsc --noEmit",
+    "prepare": "bob build",
+    "prepack": "bob build"
   },
   "keywords": [
     "react-native",
     "apng",
-    "animation",
+    "avif",
     "animated-png",
-    "image"
+    "animation",
+    "alpha",
+    "transparency",
+    "image",
+    "ios",
+    "android",
+    "web"
   ],
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danielkpl2/react-native-apng-avif.git"
+  },
+  "author": "danielkpl2",
   "license": "MIT",
-  "files": [
-    "android/src/",
-    "android/build.gradle",
-    "ios/",
-    "src/",
-    "react-native.config.js",
-    "react-native-apng-player.podspec",
-    "README.md"
-  ],
+  "bugs": {
+    "url": "https://github.com/danielkpl2/react-native-apng-avif/issues"
+  },
+  "homepage": "https://github.com/danielkpl2/react-native-apng-avif#readme",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "peerDependencies": {
-    "react": ">=16.8.0",
-    "react-native": ">=0.60.0"
+    "react": ">=18",
+    "react-native": ">=0.73"
+  },
+  "react-native-builder-bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": [
+      [
+        "commonjs",
+        {
+          "configFile": true
+        }
+      ],
+      [
+        "module",
+        {
+          "configFile": true
+        }
+      ],
+      [
+        "typescript",
+        {
+          "project": "tsconfig.build.json"
+        }
+      ]
+    ]
   },
   "devDependencies": {
-    "@types/react": "^18.0.0",
-    "react": "^18.0.0",
-    "react-native": "^0.72.0",
-    "typescript": "^5.0.0"
+    "@babel/preset-env": "^7.29.7",
+    "@babel/preset-react": "^7.29.7",
+    "@babel/preset-typescript": "^7.29.7",
+    "@types/react": "^18.3.31",
+    "react": "^18.2.0",
+    "react-native": "^0.73.11",
+    "react-native-builder-bob": "^0.23.2",
+    "typescript": "^5.9.3"
   }
 }
