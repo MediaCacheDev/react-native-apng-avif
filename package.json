@@ -1,6 +1,6 @@
 {
   "name": "react-native-apng-avif",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Animated APNG and AVIF, with alpha, in React Native on Android, iOS and Web.",
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
