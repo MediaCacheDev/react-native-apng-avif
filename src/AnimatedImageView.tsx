@@ -175,5 +175,3 @@ export const AnimatedImageView = forwardRef<AnimatedImageViewRef, AnimatedImageV
 );
 
 AnimatedImageView.displayName = 'AnimatedImageView';
-
-export default AnimatedImageView;

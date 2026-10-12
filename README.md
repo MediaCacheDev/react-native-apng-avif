@@ -89,8 +89,6 @@ PNG optimisation may re-encode them and drop the animation.
 
 It also accepts the usual `View` props (`style`, `testID`, `accessibilityLabel`, …).
 
-`ApngView` still works as a deprecated alias of `AnimatedImageView`.
-
 ### Web limitations
 
 The browser's `<img>` has no playback control, so on web:
@@ -108,4 +106,4 @@ To make a hover/press glow button from an APNG or AVIF sheet, use
 
 ## License
 
-MIT. See [NOTICE](NOTICE) for the libraries this package depends on.
+MIT. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for the libraries this package depends on.

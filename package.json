@@ -15,7 +15,7 @@
     "ios",
     "react-native-apng-avif.podspec",
     "react-native.config.js",
-    "NOTICE",
+    "THIRD_PARTY_NOTICES.md",
     "!**/__tests__",
     "!android/build",
     "!ios/build",
