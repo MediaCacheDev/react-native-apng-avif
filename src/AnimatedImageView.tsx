@@ -7,7 +7,7 @@ import type { HostComponent, ViewProps } from 'react-native';
  *
  * - `https://…` / `http://…`: downloaded once and cached, under `cacheKey` when given.
  * - `asset://path/file.apng`: the app's bundled files — Android APK `assets/`, the iOS main bundle,
- *   or a path relative to the page on web. Read in place, never copied.
+ *   or `/path/file.apng` from the site root on web. Read in place, never copied.
  * - `file:///abs/path` or `/abs/path`.
  * - `require('./file.apng')`, in debug and release builds.
  */
@@ -96,6 +96,10 @@ const resolveSource = (
   return source?.uri ? { uri: source.uri, cacheKey: cacheKey ?? source.cacheKey } : null;
 };
 
+/** On the web, asset://path is served from the site root. */
+const toWebUrl = (uri: string): string =>
+  uri.startsWith('asset://') ? '/' + uri.slice('asset://'.length).replace(/^\/+/, '') : uri;
+
 /**
  * Plays an animated APNG or AVIF, with alpha.
  *
@@ -128,7 +132,7 @@ export const AnimatedImageView = forwardRef<AnimatedImageViewRef, AnimatedImageV
       return (
         <img
           ref={ref as unknown as React.Ref<HTMLImageElement>}
-          src={resolved.uri}
+          src={toWebUrl(resolved.uri)}
           alt={rest.accessibilityLabel ?? ''}
           id={rest.nativeID}
           data-testid={rest.testID}

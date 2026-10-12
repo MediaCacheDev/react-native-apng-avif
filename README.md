@@ -57,7 +57,7 @@ import { AnimatedImageView } from 'react-native-apng-avif';
 | Form | Android | iOS | Web |
 |---|---|---|---|
 | `https://…`, `http://…` | Downloaded once into the cache dir | SDWebImage (memory + disk cache) | `<img src>` |
-| `asset://path/file.apng` | Streamed from the APK's `assets/` folder | `<main bundle>/path/file.apng` | Relative to the page: `path/file.apng` |
+| `asset://path/file.apng` | Streamed from the APK's `assets/` folder | `<main bundle>/path/file.apng` | From the site root: `/path/file.apng` |
 | `file:///abs/path`, `/abs/path` | Read directly | Read directly | n/a |
 | `content://…` | `ContentResolver` | n/a | n/a |
 | `require('./file.apng')` | Works in debug and release | Works in debug and release | Works if your bundler emits a URL for it |
