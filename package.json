@@ -27,6 +27,19 @@
     "prepare": "bob build",
     "prepack": "bob build"
   },
+  "codegenConfig": {
+    "name": "RNApngAvifSpec",
+    "type": "components",
+    "jsSrcsDir": "src",
+    "android": {
+      "javaPackageName": "io.github.danielkpl2.apngavif"
+    },
+    "ios": {
+      "componentProvider": {
+        "RNApngAvifView": "RNApngAvifViewComponentView"
+      }
+    }
+  },
   "keywords": [
     "react-native",
     "apng",

@@ -1,3 +1,6 @@
+// Old architecture only; the new one uses RNApngAvifViewComponentView.mm
+#ifndef RCT_NEW_ARCH_ENABLED
+
 #import <React/RCTViewManager.h>
 
 @interface RCT_EXTERN_REMAP_MODULE(RNApngAvifView, ApngAvifViewManager, RCTViewManager)
@@ -11,3 +14,5 @@ RCT_EXPORT_VIEW_PROPERTY(onLoad, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onError, RCTDirectEventBlock)
 
 @end
+
+#endif

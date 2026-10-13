@@ -16,6 +16,8 @@ itself, so URLs without an extension work too.
 npm install react-native-apng-avif
 ```
 
+The view works on both React Native architectures: the new one (Fabric, the default since 0.76) and the old one (`newArchEnabled=false`, up to 0.81). It is tested on 0.83, and on 0.81 with the new architecture turned off.
+
 ### iOS
 
 The iOS code is Swift, and it imports Objective-C pods that don't define modules by themselves.

@@ -8,14 +8,18 @@ import SDWebImageAVIFCoder
 /// Accepted sources: `http(s)://` (SDWebImage, cached under `cacheKey` when given), `file://` or an
 /// absolute path, and `asset://path`, resolved against the main bundle's resource directory. A
 /// release-build `require()` already arrives as a `file://` URL into the bundle.
-final class ApngAvifView: SDAnimatedImageView {
+///
+/// Public for the new architecture's component view (RNApngAvifViewComponentView.mm), which
+/// reaches it through the generated Swift header.
+@objc(ApngAvifView)
+public final class ApngAvifView: SDAnimatedImageView {
     private static let registerCoders: Void = {
         SDImageCodersManager.shared.addCoder(SDImageAPNGCoder.shared)
         SDImageCodersManager.shared.addCoder(SDImageAVIFCoder.shared)
     }()
 
-    @objc var onLoad: RCTDirectEventBlock?
-    @objc var onError: RCTDirectEventBlock?
+    @objc public var onLoad: RCTDirectEventBlock?
+    @objc public var onError: RCTDirectEventBlock?
 
     private var source: NSDictionary?
     private var autoPlay = true
@@ -24,7 +28,7 @@ final class ApngAvifView: SDAnimatedImageView {
     // Bumped on every source change; a local load that finishes under an older value is dropped.
     private var generation = 0
 
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         _ = Self.registerCoders
         contentMode = .scaleAspectFit
@@ -32,33 +36,33 @@ final class ApngAvifView: SDAnimatedImageView {
         shouldCustomLoopCount = true
     }
 
-    required init?(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         fatalError("init(coder:) is not supported")
     }
 
-    @objc func setSource(_ value: NSDictionary?) {
+    @objc public func setSource(_ value: NSDictionary?) {
         if let value, let current = source, value.isEqual(current) { return }
         source = value
         load()
     }
 
-    @objc func setAutoPlay(_ value: Bool) {
+    @objc public func setAutoPlay(_ value: Bool) {
         autoPlay = value
         updatePlayback()
     }
 
-    @objc func setPaused(_ value: Bool) {
+    @objc public func setPaused(_ value: Bool) {
         paused = value
         updatePlayback()
     }
 
-    @objc func setLoopCount(_ value: NSNumber?) {
+    @objc public func setLoopCount(_ value: NSNumber?) {
         loopCount = max(0, value?.intValue ?? 0)
         // 0 means forever, which also overrides a file that asks to play only once.
         animationRepeatCount = loopCount
     }
 
-    @objc func setResizeMode(_ value: NSString?) {
+    @objc public func setResizeMode(_ value: NSString?) {
         switch value as String? {
         case "cover": contentMode = .scaleAspectFill
         case "stretch": contentMode = .scaleToFill
@@ -67,7 +71,7 @@ final class ApngAvifView: SDAnimatedImageView {
         }
     }
 
-    override func didMoveToWindow() {
+    public override func didMoveToWindow() {
         super.didMoveToWindow()
         updatePlayback()
     }
@@ -165,9 +169,12 @@ final class ApngAvifView: SDAnimatedImageView {
     }
 }
 
+// Old architecture only; the new one uses RNApngAvifViewComponentView.mm
+#if !RCT_NEW_ARCH_ENABLED
 @objc(ApngAvifViewManager)
 final class ApngAvifViewManager: RCTViewManager {
     override static func requiresMainQueueSetup() -> Bool { true }
 
     override func view() -> UIView! { ApngAvifView(frame: .zero) }
 }
+#endif

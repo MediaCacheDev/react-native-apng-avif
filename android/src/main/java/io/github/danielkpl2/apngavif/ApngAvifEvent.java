@@ -6,8 +6,9 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.Event;
 
 final class ApngAvifEvent extends Event<ApngAvifEvent> {
-    static final String LOAD = "topApngAvifLoad";
-    static final String ERROR = "topApngAvifError";
+    // The new architecture maps these to the onLoad and onError props by name.
+    static final String LOAD = "topLoad";
+    static final String ERROR = "topError";
 
     private final String name;
     private final WritableMap data;

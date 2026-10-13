@@ -1,6 +1,7 @@
 import React, { forwardRef, useMemo } from 'react';
-import { Image, Platform, StyleSheet, requireNativeComponent } from 'react-native';
-import type { HostComponent, ViewProps } from 'react-native';
+import { Image, Platform, StyleSheet } from 'react-native';
+import type { ViewProps } from 'react-native';
+import NativeApngAvifView from './ApngAvifViewNativeComponent';
 
 /**
  * Where the animation comes from.
@@ -56,22 +57,11 @@ interface NativeSource {
   cacheKey?: string;
 }
 
-interface NativeProps extends ViewProps {
-  source: NativeSource | null;
-  autoPlay: boolean;
-  paused: boolean;
-  loopCount: number;
-  resizeMode: AnimatedImageResizeMode;
-  onLoad?: AnimatedImageViewProps['onLoad'];
-  onError?: AnimatedImageViewProps['onError'];
-}
+export type AnimatedImageViewRef = React.ElementRef<typeof NativeApngAvifView>;
 
-type NativeComponent = HostComponent<NativeProps>;
-
-export type AnimatedImageViewRef = React.ElementRef<NativeComponent>;
-
-const NativeAnimatedImageView: NativeComponent | null =
-  Platform.OS === 'web' ? null : requireNativeComponent<NativeProps>('RNApngAvifView');
+// From the codegen spec: a Fabric component on the new architecture, a view manager on the old
+// one. Null on the web.
+const NativeAnimatedImageView = Platform.OS === 'web' ? null : NativeApngAvifView;
 
 const OBJECT_FIT: Record<AnimatedImageResizeMode, 'contain' | 'cover' | 'fill' | 'none'> = {
   contain: 'contain',

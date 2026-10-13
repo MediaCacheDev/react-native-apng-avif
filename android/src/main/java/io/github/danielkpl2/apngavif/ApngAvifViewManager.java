@@ -4,14 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.facebook.react.bridge.ReadableMap;
-import com.facebook.react.uimanager.SimpleViewManager;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class ApngAvifViewManager extends SimpleViewManager<ApngAvifView> {
+public class ApngAvifViewManager extends ApngAvifViewManagerSpec<ApngAvifView> {
     public static final String REACT_CLASS = "RNApngAvifView";
 
     @NonNull
@@ -33,26 +32,31 @@ public class ApngAvifViewManager extends SimpleViewManager<ApngAvifView> {
     }
 
     @ReactProp(name = "source")
+    @Override
     public void setSource(ApngAvifView view, @Nullable ReadableMap source) {
         view.setSource(string(source, "uri"), string(source, "cacheKey"));
     }
 
     @ReactProp(name = "autoPlay", defaultBoolean = true)
+    @Override
     public void setAutoPlay(ApngAvifView view, boolean value) {
         view.setAutoPlay(value);
     }
 
     @ReactProp(name = "paused", defaultBoolean = false)
+    @Override
     public void setPaused(ApngAvifView view, boolean value) {
         view.setPaused(value);
     }
 
     @ReactProp(name = "loopCount", defaultInt = 0)
+    @Override
     public void setLoopCount(ApngAvifView view, int value) {
         view.setLoopCount(value);
     }
 
     @ReactProp(name = "resizeMode")
+    @Override
     public void setResizeMode(ApngAvifView view, @Nullable String value) {
         view.setResizeMode(value);
     }

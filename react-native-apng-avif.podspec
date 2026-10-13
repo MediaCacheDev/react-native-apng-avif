@@ -15,7 +15,13 @@ Pod::Spec.new do |s|
   s.source_files = 'ios/**/*.{h,m,mm,swift}'
   s.swift_version = '5.7'
 
-  s.dependency 'React-Core'
+  # React Native's helper: the Fabric and codegen dependencies, and RCT_NEW_ARCH_ENABLED on the
+  # new architecture.
+  if respond_to?(:install_modules_dependencies, true)
+    install_modules_dependencies(s)
+  else
+    s.dependency 'React-Core'
+  end
   s.dependency 'SDWebImage', '~> 5.21'
   s.dependency 'SDWebImageAVIFCoder', '~> 0.11'
   # Decode-only dav1d backend. libavif's default subspec is libaom, which bundles an encoder too
