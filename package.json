@@ -55,14 +55,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/danielkpl2/react-native-apng-avif.git"
+    "url": "git+https://github.com/MediaCacheDev/react-native-apng-avif.git"
   },
   "author": "Daniel Kasprowicz",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/danielkpl2/react-native-apng-avif/issues"
+    "url": "https://github.com/MediaCacheDev/react-native-apng-avif/issues"
   },
-  "homepage": "https://github.com/danielkpl2/react-native-apng-avif#readme",
+  "homepage": "https://github.com/MediaCacheDev/react-native-apng-avif#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },

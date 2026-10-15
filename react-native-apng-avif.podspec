@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.license      = package['license']
   s.authors      = { 'Daniel Kasprowicz' => 'danielkpl2@gmail.com' }
   s.platforms    = { :ios => '13.4' }
-  s.source       = { :git => 'https://github.com/danielkpl2/react-native-apng-avif.git', :tag => "v#{s.version}" }
+  s.source       = { :git => 'https://github.com/MediaCacheDev/react-native-apng-avif.git', :tag => "v#{s.version}" }
 
   s.source_files = 'ios/**/*.{h,m,mm,swift}'
   s.swift_version = '5.7'

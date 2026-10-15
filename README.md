@@ -103,16 +103,16 @@ Animated AVIF needs a recent browser; see [caniuse](https://caniuse.com/avif).
 ## Glow buttons
 
 To make a hover/press glow button from an APNG or AVIF sheet, use
-[alpha-glow-button](https://github.com/danielkpl2/alpha-glow-button): `import { GlowButton } from
+[alpha-glow-button](https://github.com/MediaCacheDev/alpha-glow-button): `import { GlowButton } from
 'alpha-glow-button/apng-avif'`.
 
 ## Demo and related packages
 
-APNG and AVIF suit short clips. For longer or larger transparent video, see the video players below. [alpha-video-test](https://github.com/danielkpl2/alpha-video-test) is a React Native app (Android, iOS and web) that plays the same video in each of these formats side by side, APNG and AVIF included, with FPS, CPU and memory readouts.
+APNG and AVIF suit short clips. For longer or larger transparent video, see the video players below. [alpha-video-test](https://github.com/MediaCacheDev/alpha-video-test) is a React Native app (Android, iOS and web) that plays the same video in each of these formats side by side, APNG and AVIF included, with FPS, CPU and memory readouts.
 
-- [alpha-video](https://github.com/danielkpl2/alpha-video): WebM VP9 and AV1 with alpha, decoded by a shared C++ core, or in hardware by MediaCodec on Android. The smallest files.
-- [alpha-video-gpu](https://github.com/danielkpl2/alpha-video-gpu): ASTC texture arrays in KTX2, drawn without decoding. The lowest CPU and battery use.
-- [alpha-video-ffmpegkit](https://github.com/danielkpl2/alpha-video-ffmpegkit): the first attempt at WebM alpha, on FFmpegKit, kept as a reference.
+- [alpha-video](https://github.com/MediaCacheDev/alpha-video): WebM VP9 and AV1 with alpha, decoded by a shared C++ core, or in hardware by MediaCodec on Android. The smallest files.
+- [alpha-video-gpu](https://github.com/MediaCacheDev/alpha-video-gpu): ASTC texture arrays in KTX2, drawn without decoding. The lowest CPU and battery use.
+- [alpha-video-ffmpegkit](https://github.com/MediaCacheDev/alpha-video-ffmpegkit): the first attempt at WebM alpha, on FFmpegKit, kept as a reference.
 
 ## License
 
