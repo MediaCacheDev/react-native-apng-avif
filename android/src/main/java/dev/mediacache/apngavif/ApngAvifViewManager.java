@@ -1,4 +1,4 @@
-package io.github.danielkpl2.apngavif;
+package dev.mediacache.apngavif;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

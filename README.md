@@ -16,7 +16,7 @@ itself, so URLs without an extension work too.
 npm install react-native-apng-avif
 ```
 
-The view works on both React Native architectures: the new one (Fabric, the default since 0.76) and the old one (`newArchEnabled=false`, up to 0.81). It is tested on 0.83, and on 0.81 with the new architecture turned off.
+The view works on both React Native architectures: the new one (Fabric, the default since 0.76) and the old one (`newArchEnabled=false`, up to 0.81).
 
 ### iOS
 
@@ -105,6 +105,14 @@ Animated AVIF needs a recent browser; see [caniuse](https://caniuse.com/avif).
 To make a hover/press glow button from an APNG or AVIF sheet, use
 [alpha-glow-button](https://github.com/danielkpl2/alpha-glow-button): `import { GlowButton } from
 'alpha-glow-button/apng-avif'`.
+
+## Demo and related packages
+
+APNG and AVIF suit short clips. For longer or larger transparent video, see the video players below. [alpha-video-test](https://github.com/danielkpl2/alpha-video-test) is a React Native app (Android, iOS and web) that plays the same video in each of these formats side by side, APNG and AVIF included, with FPS, CPU and memory readouts.
+
+- [alpha-video](https://github.com/danielkpl2/alpha-video): WebM VP9 and AV1 with alpha, decoded by a shared C++ core, or in hardware by MediaCodec on Android. The smallest files.
+- [alpha-video-gpu](https://github.com/danielkpl2/alpha-video-gpu): ASTC texture arrays in KTX2, drawn without decoding. The lowest CPU and battery use.
+- [alpha-video-ffmpegkit](https://github.com/danielkpl2/alpha-video-ffmpegkit): the first attempt at WebM alpha, on FFmpegKit, kept as a reference.
 
 ## License
 

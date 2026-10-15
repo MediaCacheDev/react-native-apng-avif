@@ -13,7 +13,7 @@ def safeExtGet(prop, fallback) {
 }
 
 android {
-    namespace "io.github.danielkpl2.apngavif"
+    namespace "dev.mediacache.apngavif"
     compileSdkVersion safeExtGet('compileSdkVersion', 36)
 
     defaultConfig {

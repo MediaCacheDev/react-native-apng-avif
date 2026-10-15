@@ -32,7 +32,7 @@
     "type": "components",
     "jsSrcsDir": "src",
     "android": {
-      "javaPackageName": "io.github.danielkpl2.apngavif"
+      "javaPackageName": "dev.mediacache.apngavif"
     },
     "ios": {
       "componentProvider": {
