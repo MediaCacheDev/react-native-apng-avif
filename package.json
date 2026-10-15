@@ -1,7 +1,7 @@
 {
   "name": "react-native-apng-avif",
   "version": "1.0.0",
-  "description": "Animated APNG and AVIF, with alpha, in React Native on Android, iOS and Web.",
+  "description": "Animated APNG and AVIF with full alpha transparency for React Native on Android, iOS and Web. One component plays both and reads the format from the file. New and old architecture.",
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
   "types": "lib/typescript/src/index.d.ts",
@@ -44,14 +44,21 @@
     "react-native",
     "apng",
     "avif",
+    "animated-avif",
     "animated-png",
-    "animation",
     "alpha",
     "transparency",
+    "transparent-animation",
+    "animation",
     "image",
-    "ios",
+    "react-native-component",
+    "fabric",
     "android",
-    "web"
+    "ios",
+    "web",
+    "react-native-web",
+    "sdwebimage",
+    "libavif"
   ],
   "repository": {
     "type": "git",
