@@ -110,9 +110,10 @@ To make a hover/press glow button from an APNG or AVIF sheet, use
 
 APNG and AVIF suit short clips. For longer or larger transparent video, see the video players below. [alpha-video-test](https://github.com/MediaCacheDev/alpha-video-test) is a React Native app (Android, iOS and web) that plays the same video in each of these formats side by side, APNG and AVIF included, with FPS, CPU and memory readouts.
 
-- [alpha-video](https://github.com/MediaCacheDev/alpha-video): WebM VP9 and AV1 with alpha, decoded by a shared C++ core, or in hardware by MediaCodec on Android. The smallest files.
-- [alpha-video-gpu](https://github.com/MediaCacheDev/alpha-video-gpu): ASTC texture arrays in KTX2, drawn without decoding. The lowest CPU and battery use.
-- [alpha-video-ffmpegkit](https://github.com/MediaCacheDev/alpha-video-ffmpegkit): the first attempt at WebM alpha, on FFmpegKit, kept as a reference.
+- [alpha-video](https://github.com/MediaCacheDev/alpha-video): transparent WebM, the smallest files. It plays standard alpha WebM in VP8 or VP9 (what FFmpeg and libvpx write), and dual-stream WebM with colour and alpha as separate VP8, VP9 or AV1 tracks. On Android it decodes in hardware with MediaCodec where it can; elsewhere, and as Android's fallback, a C++ core shared by Android and iOS decodes with libvpx and dav1d. On the web it uses the browser's own `<video>`, WebCodecs or WebAssembly, whichever keeps the alpha. React Native, Android, iOS and web packages.
+- [alpha-video-gpu](https://github.com/MediaCacheDev/alpha-video-gpu): the highest performance. ASTC texture arrays in KTX2 go to the GPU as they are, with nothing to decode, so it uses the least CPU, memory bandwidth and battery of all of these and plays many clips at once. The files are larger than WebM. React Native, Android, iOS and web (WebGL 2) packages.
+- [alpha-video-ffmpegkit](https://github.com/MediaCacheDev/alpha-video-ffmpegkit): the first attempt at transparent video, VP9 alpha WebM decoded by FFmpegKit on Android and iOS, kept as a reference.
+- [alpha-glow-button](https://github.com/MediaCacheDev/alpha-glow-button): buttons whose glow is a transparent video or animated image, played by this package or alpha-video.
 
 ## License
 
