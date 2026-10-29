@@ -4,6 +4,9 @@ Animated **APNG** and **AVIF** with full alpha transparency, in React Native on 
 Web. One component, `AnimatedImageView`, plays both formats. It reads the format from the file
 itself, so URLs without an extension work too.
 
+See them next to the transparent video formats in the [web demo](https://www.alpha-video.dev)
+([source](https://github.com/MediaCacheDev/alpha-video-test)).
+
 | Platform | APNG | AVIF |
 |---|---|---|
 | Android | [APNG4Android](https://github.com/penfeizhou/APNG4Android) | APNG4Android + libavif |
@@ -108,7 +111,7 @@ To make a hover/press glow button from an APNG or AVIF sheet, use
 
 ## Demo and related packages
 
-APNG and AVIF suit short clips. For longer or larger transparent video, see the video players below. [alpha-video-test](https://github.com/MediaCacheDev/alpha-video-test) is a React Native app (Android, iOS and web) that plays the same video in each of these formats side by side, APNG and AVIF included, with FPS, CPU and memory readouts.
+APNG and AVIF suit short clips. For longer or larger transparent video, see the video players below. [alpha-video-test](https://github.com/MediaCacheDev/alpha-video-test) is a React Native app (Android, iOS and web) that plays the same video in each of these formats side by side, APNG and AVIF included, with FPS, CPU and memory readouts. Its web build runs at [www.alpha-video.dev](https://www.alpha-video.dev).
 
 - [alpha-video](https://github.com/MediaCacheDev/alpha-video): transparent WebM, the smallest files. It plays standard alpha WebM in VP8 or VP9 (what FFmpeg and libvpx write), and dual-stream WebM with colour and alpha as separate VP8, VP9 or AV1 tracks. On Android it decodes in hardware with MediaCodec where it can; elsewhere, and as Android's fallback, a C++ core shared by Android and iOS decodes with libvpx and dav1d. On the web it uses the browser's own `<video>`, WebCodecs or WebAssembly, whichever keeps the alpha. React Native, Android, iOS and web packages.
 - [alpha-video-gpu](https://github.com/MediaCacheDev/alpha-video-gpu): the highest performance. ASTC texture arrays in KTX2 go to the GPU as they are, with nothing to decode, so it uses the least CPU, memory bandwidth and battery of all of these and plays many clips at once. The files are larger than WebM. React Native, Android, iOS and web (WebGL 2) packages.
